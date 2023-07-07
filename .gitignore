@@ -56,4 +56,3 @@ test/**/*.js.map
 .env.local
 .env.development
 .yarn
-.husky
