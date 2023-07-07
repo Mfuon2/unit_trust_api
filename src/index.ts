@@ -6,8 +6,8 @@ async function bootstrap() {
   try {
     const platform = await PlatformExpress.bootstrap(Server);
     await platform.listen();
-
     process.on("SIGINT", () => {
+      $log.info(`----- stopping server ----- `)
       platform.stop();
     });
   } catch (error) {
@@ -15,4 +15,4 @@ async function bootstrap() {
   }
 }
 
-bootstrap();
+bootstrap().then(r => {$log.info(`----- server started ----- `)})

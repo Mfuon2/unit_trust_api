@@ -5,9 +5,10 @@ import "@tsed/platform-express"; // /!\ keep this import
 import "@tsed/ajv";
 import "@tsed/swagger";
 import "@tsed/mongoose";
-import { config } from "./config/index";
+import { config } from "./config";
 import * as api from "./controllers/api/index";
 import * as pages from "./controllers/pages/index";
+import {swaggerConfig} from "./config/docs/swagger";
 
 @Configuration({
   ...config,
@@ -19,12 +20,7 @@ import * as pages from "./controllers/pages/index";
     "/api": [...Object.values(api)],
     "/": [...Object.values(pages)]
   },
-  swagger: [
-    {
-      path: "/doc",
-      specVersion: "3.0.1"
-    }
-  ],
+  swagger: swaggerConfig,
   middlewares: [
     "cors",
     "cookie-parser",
