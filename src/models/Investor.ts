@@ -5,13 +5,14 @@ import {Default, Format, Maximum, MaxLength, Minimum, MinLength, Name, Property,
 @Name('InvestorModel')
 export class Investor {
     @ObjectID('investorId')
+    @Unique()
     @Property()
     investorId: string;
 
     @Property()
     @MaxLength(100)
     @Required()
-    firstName: string;
+    fullName: string;
 
     @Property()
     @MaxLength(100)

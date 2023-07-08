@@ -3,7 +3,7 @@ import {ArrayOf, Get, Post, Returns} from "@tsed/schema";
 import {BodyParams, PathParams} from "@tsed/platform-params";
 import {InvestorRepository} from "../../repositories/InvestorRepository";
 import {Investor} from "../../models/Investor";
-import {PlatformResponse, Res} from "@tsed/common";
+import {$log, PlatformResponse, Res} from "@tsed/common";
 
 @Controller("/investor")
 export class InvestorController {
@@ -16,8 +16,10 @@ export class InvestorController {
     }
 
     @Get("/:investorId") @Returns(200, Investor).AnyOf(Promise<PlatformResponse<Investor>>)
-    async getOneInvestor(@Res() response: PlatformResponse, @PathParams("investorId") id: string): Promise<PlatformResponse<Investor>> {
-        return response.body(this.investorRepository.findById(id));
+    async getOneInvestor(@Res() response: PlatformResponse, @PathParams("investorId") investorId: string): Promise<PlatformResponse<Investor>> {
+        const results = this.investorRepository.findByInvestorId(investorId).then()
+        $log.warn("-------- results -------- ", results)
+        return response.body(results);
     }
 
     @Post("/createOrUpdate")
